@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Text</title>
+    
+    <script  src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    
+</head>
+
+<body>
+    
+    <h1>Current Messages:</h1>
+    <table class="information">
+        <tr>
+            <th>Message:</th>
+            <th>Telephone:</th>
+        </tr>
+    </table>
+    
+</body>
+    
+    <script>
+    
+        $(window).load(function(){
+            $.ajax({
+                dataType: 'json',
+                url: 'messages.php',
+                success: function($result){
+                    var length = $result.response.result.length;
+                    for (i=0; i < length; i++) {
+                        $(".information").append("<tr><td>" + $result.response.result[i].message + "</td>" + "<td>" + $result.response.result[i].contact.number + "</td></tr>")
+                    }
+                },
+                error: function(data) {
+                    $(".messages").html("<p>There was an error loading json file</p>")
+                }
+            });
+        })
+    
+    </script>
+    
+</html>
